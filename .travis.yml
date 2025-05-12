@@ -11,9 +11,6 @@ env:
   - secure: your_encrypted_private_key_here
 install:
 - npm install
-script:
-- npm run build
-- npm test
 deploy:
   provider: script
   script: |
