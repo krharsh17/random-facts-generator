@@ -5,7 +5,8 @@ mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 echo "printing before"
 cat ~/.ssh/known_hosts
-ssh-keyscan -t rsa $SERVER_IP >> ~/.ssh/known_hosts
+HOST=$(ssh-keyscan -t rsa $SERVER_IP)
+echo $HOST >> $HOME/.ssh/known_hosts
 echo "printing after"
 cat ~/.ssh/known_hosts
 ssh $UPCLOUD_USERNAME@$SERVER_IP /bin/bash << 'EOT'
