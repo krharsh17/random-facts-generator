@@ -1,0 +1,35 @@
+language: node_js
+node_js:
+- '16'
+branches:
+  only:
+  - main
+env:
+  global:
+  - SERVER_IP=185.26.49.2
+  - UPCLOUD_USERNAME=root
+  - secure: your_encrypted_private_key_here
+install:
+- npm install
+script:
+- npm run build
+- npm test
+deploy:
+  provider: script
+  script: |
+    ssh $UPCLOUD_USERNAME@$SERVER_IP /bin/bash << 'EOT'
+      cd random-facts-generator
+      git pull origin main
+      yarn
+      yarn restart:prod
+    EOT
+  on:
+    branch: main
+before_install:
+- openssl aes-256-cbc -K $encrypted_189e52c2c347_key -iv $encrypted_189e52c2c347_iv
+  -in deploy_key.enc -out deploy_key -d
+- chmod 400 deploy_key
+- ssh-add deploy_key
+- mkdir -p ~/.ssh
+- chmod 700 ~/.ssh
+- ssh-keyscan -t rsa $SERVER_IP >> ~/.ssh/known_hosts
