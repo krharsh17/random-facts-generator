@@ -29,6 +29,8 @@ before_install:
 - openssl aes-256-cbc -K $encrypted_189e52c2c347_key -iv $encrypted_189e52c2c347_iv
   -in deploy_key.enc -out deploy_key -d
 - chmod 400 deploy_key
+- 'command -v ssh-agent >/dev/null || ( apt-get update -y && apt-get install openssh-client -y )'
+- eval $(ssh-agent -s)
 - ssh-add deploy_key
 - mkdir -p ~/.ssh
 - chmod 700 ~/.ssh
