@@ -6,7 +6,7 @@ branches:
   - main
 env:
   global:
-  - SERVER_IP=94.237.16.140
+  - SERVER_IP=213.163.206.7
   - UPCLOUD_USERNAME=root
 install:
 - npm install
