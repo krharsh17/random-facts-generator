@@ -15,7 +15,7 @@ jobs:
           command: |
             echo "pipeline is running"
             ssh -o StrictHostKeyChecking=no $UPCLOUD_USERNAME@$SERVER_IP \<< 'EOF'
-              cd /random-facts-generator
+              cd ~/random-facts-generator
               git pull origin main
               yarn restart:prod
             EOF
