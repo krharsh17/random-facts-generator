@@ -11,9 +11,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Add SSH key
+          name: SSH into Server and Deploy
           command: |
-            echo "pipeline is running"
             ssh -o StrictHostKeyChecking=no $UPCLOUD_USERNAME@$SERVER_IP \<< 'EOF'
               cd ~/random-facts-generator
               git pull origin main
