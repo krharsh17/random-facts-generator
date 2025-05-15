@@ -1,4 +1,4 @@
-version: 0.1
+version: 2.1
 
 executors:
   node-executor:
@@ -23,7 +23,7 @@ jobs:
             EOF
 
 workflows:
-  version: 0.1
+  version: 2
   deploy:
     jobs:
       - deploy:
