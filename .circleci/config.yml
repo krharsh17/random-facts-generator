@@ -1,0 +1,33 @@
+version: 0.1
+
+executors:
+  node-executor:
+    docker:
+      - image: cimg/node:16.20 # or whatever Node.js version you prefer
+
+jobs:
+  deploy:
+    executor: node-executor
+    steps:
+      - checkout
+      - run:
+          name: Add SSH key
+          command: |
+            echo "pipeline is running"
+            echo "$UPCLOUD_SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+            chmod 600 ~/.ssh/deploy_key
+            ssh -o StrictHostKeyChecking=no -i ~/.ssh/deploy_key $UPCLOUD_USERNAME@$SERVER_IP << 'EOF'
+              cd /random-facts-generator
+              git pull origin main
+              yarn restart:prod
+            EOF
+
+workflows:
+  version: 0.1
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: main
+
