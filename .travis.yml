@@ -1,6 +1,7 @@
 language: node_js
 node_js:
-- '16'
+- '24'
+dist: noble
 branches:
   only:
   - main
